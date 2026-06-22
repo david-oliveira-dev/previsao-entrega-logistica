@@ -1,0 +1,12 @@
+# Ambiente virtual
+.venv/
+
+# Dados brutos do Olist (baixados — ver README)
+data/
+
+# Caches
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Nota: models/ É versionado (a API precisa do modelo treinado).
