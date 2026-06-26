@@ -1,5 +1,7 @@
 # Previsão de Tempo de Entrega — Olist (FastAPI + Docker)
 
+[![CI](https://github.com/david-oliveira-dev/previsao-entrega-logistica/actions/workflows/ci.yml/badge.svg)](https://github.com/david-oliveira-dev/previsao-entrega-logistica/actions/workflows/ci.yml)
+
 Modelo que estima **em quantos dias** um pedido de e-commerce será entregue, **servido
 por uma API FastAPI empacotada em Docker**. O foco não é um modelo sofisticado — é a
 **cadeia completa**: dado → modelo → API → container (MLOps básico).
@@ -106,8 +108,24 @@ api/main.py      # FastAPI: /health e /predict
 api/schema.py    # contratos Pydantic de entrada/saída
 models/          # modelo.joblib (versionado — a API precisa dele)
 notebooks/       # 01_eda_modelagem.ipynb — EDA + modelagem
+tests/           # testes de features, junção de dados e da API
 Dockerfile
 ```
+
+## Testes
+
+Cobrem a engenharia de features (agregação por pedido, alvo em dias, remoção de
+outliers), a junção das tabelas do Olist (só pedidos entregues com data válida) e
+a API (`/health`, `/predict`, validação de entrada). Rodam sem o dataset bruto —
+usam dados sintéticos e o modelo versionado em `models/`.
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
+Executados automaticamente a cada push/PR via GitHub Actions (Python 3.11 e 3.12) —
+veja o badge no topo.
 
 ## Limitações
 
